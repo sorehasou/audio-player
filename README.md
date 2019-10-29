@@ -1,6 +1,5 @@
-# audio-player
-
-> An electron-vue project
+# audio-player (準備中)
+シンプルなオーディオプレイヤー
 
 ## Screenshots
 ![main-page](https://raw.githubusercontent.com/sorehasou/audio-player/master/screen_shot/audio-player_3hZkFPDyeH.png)
