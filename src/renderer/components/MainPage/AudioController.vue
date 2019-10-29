@@ -1,0 +1,20 @@
+<template>
+  <div>
+    <audio controls ref="audioPlayer">
+    </audio>
+  </div>
+</template>
+
+<script>
+  export default {
+    methods: {
+      play (src) {
+        this.$refs.audioPlayer.src = src;
+      }
+    }
+  }
+</script>
+
+<style>
+
+</style>
