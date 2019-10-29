@@ -1,6 +1,6 @@
 <template>
   <div>
-    <audio controls ref="audioPlayer">
+    <audio controls ref="audioPlayer" autoplay loop>
     </audio>
   </div>
 </template>
@@ -16,5 +16,7 @@
 </script>
 
 <style>
-
+audio {
+  width: 100%;
+}
 </style>
