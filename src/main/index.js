@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, session } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -22,6 +22,18 @@ function createWindow () {
     useContentSize: true,
     width: 1000
   })
+
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    // SOP 暫定回避 #START
+    callback({
+      cancel: false,
+      responseHeaders: {
+        ...details.responseHeaders,
+        "Access-Control-Allow-Origin": ["*"],
+      },
+    });
+    // SOP 暫定回避 #END
+  });
 
   mainWindow.loadURL(winURL)
 
