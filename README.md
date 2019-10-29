@@ -2,6 +2,9 @@
 
 > An electron-vue project
 
+## Screenshots
+![main-page](https://raw.githubusercontent.com/sorehasou/audio-player/master/screen_shot/audio-player_3hZkFPDyeH.png)
+
 #### Build Setup
 
 ``` bash
