@@ -12,8 +12,12 @@
             <div class="music-title" @click="play(item.url)">
               {{item.title}}
             </div>
-            <div class="music-artist" @click="play(item.url)">
+            <div class="music-artist">
               {{item.artist}}
+            </div>
+            <div class="music-select">
+              <span class="music-play" @click="play(item.url)">再生</span>
+              <span class="music-add-list" @click="addPlayList(item)">プレイリストに追加</span>
             </div>
           </div>
         </div>
@@ -92,11 +96,17 @@
         var controller = this.$refs.audioController;
         controller.play(src);
       },
+      addPlayList (src) {
+        alert("準備中");
+      }
     }
   }
 </script>
 
 <style>
+button {
+  cursor: pointer;
+}
 #wrapper {
   display: flex;
   height: 100%;
@@ -151,24 +161,35 @@
   border-radius: 10px;
   border: 1px solid #737373;
 }
+#audio-controller {
+  box-shadow: 0px 0px 8px #656565;
+  position: relative;
+  z-index: 1;
+}
 .music-list {
   overflow: hidden;
   margin: 10px;
   padding-bottom: 10px;
   border-bottom: 1px dotted #c5c5c5;
+  display: flex;
 }
 .music-img {
   width: 70px;
   height: 70px;
-  float: left;
 }
 .music-detail {
-  float: left;
   margin-left: 10px;
+  flex-grow: 1;
+  flex-basis: 0;
+  overflow: hidden;
+  position: relative;
 }
 .music-title {
   font-weight: bold;
   font-size: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .music-artist {
   color: #797979;
@@ -177,5 +198,28 @@
 .music-list:last-child {
   border-bottom: none;
   padding-bottom: 0;
+}
+.music-select {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  font-size: 11px;
+}
+.music-play, .music-add-list {
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  color: white;
+  padding: 3px 0;
+  border-radius: 5px;
+}
+.music-play {
+  margin-right: 5px;
+  background-color: #3e83b5;
+}
+.music-add-list {
+  margin-left: 5px;
+  background-color: #ff2360;
 }
 </style>
