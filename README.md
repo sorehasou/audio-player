@@ -2,7 +2,7 @@
 シンプルなオーディオプレイヤー
 
 ## Screenshots
-![main-page](https://raw.githubusercontent.com/sorehasou/audio-player/master/screen_shot/audio-player_jXrinnk3d2.png)
+![main-page](https://raw.githubusercontent.com/sorehasou/audio-player/master/screen_shot/audio-player_kG1MdlgpPv.png)
 
 #### Build Setup
 
