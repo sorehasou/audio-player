@@ -186,7 +186,7 @@ button {
 }
 .music-title {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;

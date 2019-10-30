@@ -12,6 +12,7 @@
 
 <style>
   html, body, #app {
+    font-family: meiryo;
     overflow: hidden;
     margin: 0;
     padding: 0;
