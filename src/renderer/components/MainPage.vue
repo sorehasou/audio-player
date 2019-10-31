@@ -1,15 +1,19 @@
 <template>
-  <div id="wrapper">
+  <div id="wrapper" :class="{'play-list-open': showPlaylist}">
     <div id="search-input">
       <input id="search-input-area" ref="searchInputArea" @keydown.enter="initSearch">
       <button id="search-button" @click="initSearch">検索</button>
+      <button id="play-list-button" @click="playListOpen">…</button>
     </div>
-    <div id="search-result">
-      <div v-if="existsResult()">
+    <div id="main-content">
+      <div id="play-list">
+        準備中
+      </div>
+      <div id="search-result" v-if="existsResult()">
         <div v-for="item in displayQueue.items" class="music-list">
           <img class="music-img" :src="item.coverURL">
           <div class="music-detail">
-            <div class="music-title" @click="play(item.url)">
+            <div class="music-title">
               {{item.title}}
             </div>
             <div class="music-artist">
@@ -52,6 +56,7 @@
       return {
         name: process.env.npm_package_name,
         version: process.env.npm_package_version,
+        showPlaylist: false,
         displayQueue: {
           hashMore: false,
           searchIndex: 0,
@@ -92,6 +97,9 @@
           }
         });
       },
+      playListOpen () {
+        this.showPlaylist = !this.showPlaylist;
+      },
       play (src) {
         var controller = this.$refs.audioController;
         controller.play(src);
@@ -112,19 +120,22 @@ button {
   height: 100%;
   flex-direction: column;
 }
-#search-result {
-  flex-grow: 1;
-  overflow-y: scroll;
-  border-top: 1px solid #696969;
+#main-content {
+    flex-grow: 1;
+    overflow: hidden;
+    border-top: 1px solid #696969;
+    position: relative;
 }
 #no-data {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 33px;
-  font-weight: bold;
-  color: #a7a7a7;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 33px;
+    font-weight: bold;
+    color: #a7a7a7;
+    width: 100%;
+    text-align: center;
 }
 #load-more {
   border: 1px solid #808080;
@@ -161,10 +172,48 @@ button {
   border-radius: 10px;
   border: 1px solid #737373;
 }
+#play-list-button {
+    padding: 7px 10px;
+    background-color: #ff2360;
+    color: white;
+    outline: none;
+    border-radius: 10px;
+    border: 1px solid #737373;
+    margin-left: 10px;
+    font-weight: bold;
+}
 #audio-controller {
   box-shadow: 0px 0px 8px #656565;
   position: relative;
-  z-index: 1;
+  z-index: 200;
+}
+#search-result {
+  overflow-y: scroll;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+#play-list {
+    position: absolute;
+    bottom: -100%;
+    right: 0;
+    left: 0;
+    height: 100%;
+    z-index: 110;
+    background-color: #ffffff;
+    overflow-y: scroll;
+    transition: 1s;
+}
+#wrapper.play-list-open #play-list {
+    bottom: 0px;
+}
+#wrapper.play-list-open #search-input-area,
+#wrapper.play-list-open #search-button {
+  pointer-events: none;
+  opacity: 0.5;
 }
 .music-list {
   overflow: hidden;
@@ -194,6 +243,9 @@ button {
 .music-artist {
   color: #797979;
   font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .music-list:last-child {
   border-bottom: none;
