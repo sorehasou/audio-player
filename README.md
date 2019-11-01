@@ -1,4 +1,4 @@
-# audio-player (準備中)
+# audio-player
 シンプルなオーディオプレイヤー
 
 ## Screenshots
