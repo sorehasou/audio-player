@@ -212,7 +212,6 @@ button {
   outline: none;
   border-radius: 10px;
   border: 1px solid #737373;
-  margin-left: 10px;
   flex-grow: 1;
 }
 #audio-controller {
