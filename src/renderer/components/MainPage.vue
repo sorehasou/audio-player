@@ -7,7 +7,7 @@
     </div>
     <div id="main-content">
       <div id="play-list">
-        準備中
+        <play-list ref="playList"></play-list>
       </div>
       <div id="search-result" v-if="existsResult()">
         <div v-for="item in displayQueue.items" class="music-list">
@@ -46,12 +46,17 @@
 <script>
   import product from '@/product';
   import $ from 'jquery';
+  import { mapMutations } from 'vuex';
 
   import audioController from './MainPage/AudioController'
+  import playList from './MainPage/PlayList'
 
   export default {
     name: 'main-page',
-    components: { audioController },
+    components: {
+      audioController,
+      playList
+    },
     data () {
       return {
         name: process.env.npm_package_name,
@@ -66,6 +71,11 @@
       }
     },
     methods: {
+      ...mapMutations([
+        'addTrack',
+        'removeTrack',
+        'nextTrack',
+      ]),
       existsResult () {
         var result = this.displayQueue;
         return Array.isArray(result.items) &&
@@ -105,7 +115,7 @@
         controller.play(src);
       },
       addPlayList (src) {
-        alert("準備中");
+        this.addTrack(src);
       }
     }
   }
@@ -205,7 +215,7 @@ button {
     z-index: 110;
     background-color: #ffffff;
     overflow-y: scroll;
-    transition: 1s;
+    transition: .5s;
 }
 #wrapper.play-list-open #play-list {
     bottom: 0px;
