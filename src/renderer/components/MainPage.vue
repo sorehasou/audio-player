@@ -38,7 +38,7 @@
         </div>
       </div>
       <div v-else>
-        <div id="no-data">
+        <div class="no-data">
           検索結果なし
         </div>
       </div>
@@ -151,7 +151,7 @@ button {
   border-top: 1px solid #696969;
   position: relative;
 }
-#no-data {
+.no-data {
   position: absolute;
   top: 50%;
   left: 50%;
