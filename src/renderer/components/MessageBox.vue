@@ -35,7 +35,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(78, 78, 78, 0.82);
+  background-color: rgba(23, 23, 23, 0.82);
   z-index: 199;
   white-space: nowrap;
 }
