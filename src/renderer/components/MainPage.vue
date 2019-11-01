@@ -1,14 +1,14 @@
 <template>
-  <div id="wrapper" :class="{'play-list-open': showPlaylist}">
+  <div id="wrapper" :class="{'play-list-open': appInfo.isShowPlayList}">
     <div id="search-input">
-      <template v-if="showPlaylist">
+      <template v-if="appInfo.isShowPlayList">
         <button id="play-list-start-button" :class="{disable: !isPlayable()}" @click="playListStart(0)">プレイリストを再生</button>
       </template>
       <template v-else>
         <input id="search-input-area" ref="searchInputArea" @keydown.enter="initSearch">
         <button id="search-button" @click="initSearch">検索</button>
       </template>
-      <button id="play-list-button" @click="playListOpen">…</button>
+      <button id="play-list-button" @click="togglePlayList">…</button>
     </div>
     <div id="main-content">
       <message-box ref="messageBox"></message-box>
@@ -69,7 +69,7 @@
       return {
         name: process.env.npm_package_name,
         version: process.env.npm_package_version,
-        showPlaylist: false,
+        appInfo: this.$store.state.AppInfo,
         displayQueue: {
           hashMore: false,
           searchIndex: 0,
@@ -82,6 +82,7 @@
       ...mapMutations([
         'addTrack',
         'removeTrack',
+        'togglePlayList',
       ]),
       existsResult () {
         var result = this.displayQueue;
@@ -116,9 +117,6 @@
       },
       isPlayable () {
         return this.$store.state.AudioData.playList.length > 0;
-      },
-      playListOpen () {
-        this.showPlaylist = !this.showPlaylist;
       },
       play (src) {
         var controller = this.$refs.audioController;
