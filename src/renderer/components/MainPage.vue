@@ -11,6 +11,7 @@
       <button id="play-list-button" @click="playListOpen">…</button>
     </div>
     <div id="main-content">
+      <message-box ref="messageBox"></message-box>
       <div id="play-list">
         <play-list ref="playList"></play-list>
       </div>
@@ -53,14 +54,16 @@
   import $ from 'jquery';
   import { mapMutations } from 'vuex';
 
-  import audioController from './MainPage/AudioController'
-  import playList from './MainPage/PlayList'
+  import messageBox from './MessageBox';
+  import audioController from './MainPage/AudioController';
+  import playList from './MainPage/PlayList';
 
   export default {
     name: 'main-page',
     components: {
+      messageBox,
       audioController,
-      playList
+      playList,
     },
     data () {
       return {
@@ -123,6 +126,7 @@
       },
       addPlayList (src) {
         this.addTrack(src);
+        this.$refs.messageBox.show('プレイリストに追加しました');
       },
       playListStart (index) {
         var controller = this.$refs.audioController;
