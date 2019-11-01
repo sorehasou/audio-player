@@ -1,8 +1,13 @@
 <template>
   <div id="wrapper" :class="{'play-list-open': showPlaylist}">
     <div id="search-input">
-      <input id="search-input-area" ref="searchInputArea" @keydown.enter="initSearch">
-      <button id="search-button" @click="initSearch">検索</button>
+      <template v-if="showPlaylist">
+        <button id="play-list-start-button" :class="{disable: !isPlayable()}" @click="playListStart(0)">プレイリストを再生</button>
+      </template>
+      <template v-else>
+        <input id="search-input-area" ref="searchInputArea" @keydown.enter="initSearch">
+        <button id="search-button" @click="initSearch">検索</button>
+      </template>
       <button id="play-list-button" @click="playListOpen">…</button>
     </div>
     <div id="main-content">
@@ -74,7 +79,6 @@
       ...mapMutations([
         'addTrack',
         'removeTrack',
-        'nextTrack',
       ]),
       existsResult () {
         var result = this.displayQueue;
@@ -107,6 +111,9 @@
           }
         });
       },
+      isPlayable () {
+        return this.$store.state.AudioData.playList.length > 0;
+      },
       playListOpen () {
         this.showPlaylist = !this.showPlaylist;
       },
@@ -116,6 +123,10 @@
       },
       addPlayList (src) {
         this.addTrack(src);
+      },
+      playListStart (index) {
+        var controller = this.$refs.audioController;
+        controller.playListStart(index);
       }
     }
   }
@@ -131,21 +142,21 @@ button {
   flex-direction: column;
 }
 #main-content {
-    flex-grow: 1;
-    overflow: hidden;
-    border-top: 1px solid #696969;
-    position: relative;
+  flex-grow: 1;
+  overflow: hidden;
+  border-top: 1px solid #696969;
+  position: relative;
 }
 #no-data {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 33px;
-    font-weight: bold;
-    color: #a7a7a7;
-    width: 100%;
-    text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 33px;
+  font-weight: bold;
+  color: #a7a7a7;
+  width: 100%;
+  text-align: center;
 }
 #load-more {
   border: 1px solid #808080;
@@ -183,14 +194,24 @@ button {
   border: 1px solid #737373;
 }
 #play-list-button {
-    padding: 7px 10px;
-    background-color: #ff2360;
-    color: white;
-    outline: none;
-    border-radius: 10px;
-    border: 1px solid #737373;
-    margin-left: 10px;
-    font-weight: bold;
+  padding: 7px 10px;
+  background-color: #383838;
+  color: white;
+  outline: none;
+  border-radius: 10px;
+  border: 1px solid #737373;
+  margin-left: 10px;
+  font-weight: bold;
+}
+#play-list-start-button {
+  background-color: #ff2360;
+  padding: 7px 10px;
+  color: white;
+  outline: none;
+  border-radius: 10px;
+  border: 1px solid #737373;
+  margin-left: 10px;
+  flex-grow: 1;
 }
 #audio-controller {
   box-shadow: 0px 0px 8px #656565;
@@ -207,23 +228,22 @@ button {
   z-index: 100;
 }
 #play-list {
-    position: absolute;
-    bottom: -100%;
-    right: 0;
-    left: 0;
-    height: 100%;
-    z-index: 110;
-    background-color: #ffffff;
-    overflow-y: scroll;
-    transition: .5s;
+  position: absolute;
+  bottom: -100%;
+  right: 0;
+  left: 0;
+  height: 100%;
+  z-index: 110;
+  background-color: #ffffff;
+  overflow-y: scroll;
+  transition: .5s;
 }
 #wrapper.play-list-open #play-list {
-    bottom: 0px;
+  bottom: 0px;
 }
-#wrapper.play-list-open #search-input-area,
-#wrapper.play-list-open #search-button {
+.disable {
   pointer-events: none;
-  opacity: 0.5;
+  opacity: .5;
 }
 .music-list {
   overflow: hidden;
@@ -268,7 +288,7 @@ button {
   width: 100%;
   font-size: 11px;
 }
-.music-play, .music-add-list {
+.music-play, .music-add-list, .music-remove-list {
   cursor: pointer;
   flex: 1;
   text-align: center;
@@ -283,5 +303,9 @@ button {
 .music-add-list {
   margin-left: 5px;
   background-color: #ff2360;
+}
+.music-remove-list {
+  margin-left: 5px;
+  background-color: #1d1d1d;
 }
 </style>

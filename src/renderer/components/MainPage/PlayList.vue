@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="playList.length > 0" v-for="item in playList" class="music-list">
+    <div v-if="playList.length > 0" v-for="(item, index) in playList" class="music-list">
       <img class="music-img" :src="item.coverURL">
       <div class="music-detail">
         <div class="music-title">
@@ -10,7 +10,8 @@
           {{item.artist}}
         </div>
         <div class="music-select">
-          Now Playing...
+          <span class="music-play" @click="play(index)">この曲から再生</span>
+          <span class="music-remove-list" @click="remove(index)">削除</span>
         </div>
       </div>
     </div>
@@ -33,8 +34,13 @@
       ...mapMutations([
         'addTrack',
         'removeTrack',
-        'nextTrack',
       ]),
+      play (index) {
+        this.$parent.$refs.audioController.playListStart(index);
+      },
+      remove (index) {
+        this.removeTrack(index);
+      }
     }
   }
 </script>
