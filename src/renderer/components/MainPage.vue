@@ -173,7 +173,7 @@ button {
   padding: 10px;
   display: flex;
   flex-shrink: 0;
-  background-color: #5a5a5a;
+  background-color: #e4e4e4;
 }
 #search-input-area {
   flex-grow: 1;
@@ -183,22 +183,22 @@ button {
   padding: 0 7px;
   border-radius: 10px;
   border: none;
-  background-color: #444444;
-  color: white;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #737373;
 }
 #search-button {
-  border: none;
   padding: 7px 25px;
-  background-color: #464646;
-  color: white;
+  background-color: #ffffff;
+  color: #292929;
   outline: none;
   border-radius: 10px;
   border: 1px solid #737373;
 }
 #play-list-button {
   padding: 7px 10px;
-  background-color: #383838;
-  color: white;
+  background-color: #ffffff;
+  color: black;
   outline: none;
   border-radius: 10px;
   border: 1px solid #737373;
@@ -206,7 +206,7 @@ button {
   font-weight: bold;
 }
 #play-list-start-button {
-  background-color: #ff2360;
+  background-color: #ff0052;
   padding: 7px 10px;
   color: white;
   outline: none;
